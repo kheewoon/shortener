@@ -25,13 +25,16 @@ public class ShortenerService {
 
     private final ShortenerQueryRepository shortenerQueryRepository;
 
+    /*
+    * 단축 URL 생성 및 단축 URL 상세정보 조회
+    * */
     @Transactional
     public ShortenerApiDto shortenUrlProcess(ShortenerDto shortenerDto) throws NoSuchAlgorithmException {
 
-        //URL 존재 여부 조회
+        //파라미터로 넘어온 URL 데이터로 단축 URL 존재 여부 조회
         Optional<ShortenerEntity> findShortenerEntity = shortenerRepository.findByUrl(shortenerDto.getUrl());
 
-        //
+        //생성된 단축 URL 저장 변수
         String shortId = "";
 
         //URL 존재시 기존 URL 정보 반환
@@ -60,13 +63,19 @@ public class ShortenerService {
         return shortenerQueryRepository.findShortener(shortId).orElseThrow(() -> new ShortenerException(ShortenerEnum.URL_FIND_FAIL));
     }
 
+    /*
+    * 단축 URL 상세정보 조회
+    * */
     @Transactional
     public ShortenerApiDto getShortLink(String shortId){
         //등록된 URL 정보 조회후 리턴
         return shortenerQueryRepository.findShortener(shortId).orElseThrow(() -> new ShortenerException(ShortenerEnum.URL_FIND_FAIL));
     }
 
-    //단축 URL ID 생성 및 중복검사
+    /*
+    * 단축 URL ID 생성 및 중복검사
+    * */
+    @Transactional
     public String getShortId(Long savedId) throws NoSuchAlgorithmException {
         String shortId = urlEncoder.urlEncoder(savedId);
 
