@@ -3,10 +3,8 @@ package org.report.shortener.common.advice;
 import lombok.extern.slf4j.Slf4j;
 import org.report.shortener.common.code.CommonEnum;
 import org.report.shortener.common.code.ErrorEnum;
-import org.report.shortener.common.code.ShortenerEnum;
 import org.report.shortener.common.exception.ErrorException;
 import org.report.shortener.common.exception.ShortenerException;
-import org.report.shortener.common.response.CommonResponse;
 import org.report.shortener.common.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +22,7 @@ public class ExceptionControllerAdvice {
     public ResponseEntity ShortenerException(final ShortenerException ex) {
         //log.error("CommonException: {}", ex.getErrorCode());
 
-        return new ResponseEntity<>(new CommonResponse<>(CommonEnum.STATUS_FAIL.getName(), ex.getShortenerEnum().getCode(), ex.getShortenerEnum().getMessage()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ErrorResponse<>(CommonEnum.STATUS_FAIL.getName(), ex.getShortenerEnum().getCode(), ex.getShortenerEnum().getMessage()), HttpStatus.BAD_REQUEST);
     }
 
     // 400

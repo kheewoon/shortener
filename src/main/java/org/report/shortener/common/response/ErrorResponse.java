@@ -5,12 +5,12 @@ import org.json.simple.JSONObject;
 import org.report.shortener.common.code.ErrorEnum;
 
 @Getter
-public class ErrorResponse {
+public class ErrorResponse<T> {
 
     private final String status;
     private JSONObject errors = new JSONObject();
 
-    public ErrorResponse(String status, int errorCode, String errorMessage) {
+    public ErrorResponse(String status, T errorCode, String errorMessage) {
         this.status = status;
         this.errors.put("code", errorCode);
         this.errors.put("message", errorMessage);
